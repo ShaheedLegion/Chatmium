@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+IDs:
+
+	users
+	upfile
+	content
+	message
+	send
+-->
+
+<vbox width="100%" height="100%" xmlns:ui="haxe:ui" xmlns:style="haxe:style">
+	<style>
+		#dark1 {
+			backgroundColor: 0xF1F1F1;
+		}
+		#dark2 {
+			backgroundColor: 0xDADADA;
+		}
+	</style>
+
+	<vbox width="100%" height="86%" style="spacing:0;padding:0"  id="dark1">
+		<expandablepanel width="100%" text="Menu" startExpanded="false">
+			<scrollview width="100%" height="400">
+				<hbox width="100%">
+					<button text="Upload File" id="upfile" />
+					<button text="Change alias" id="alias" />
+				</hbox>
+				<listview width="100%" height="360" id="users" text="Users:">
+				</listview>
+			</scrollview>
+		</expandablepanel>
+		
+		<listview width="100%" height="100%" id="chatpanel" />
+	</vbox>
+
+	<hbox width="100%" height="14%" style="spacing:10;padding:10" id="dark2">
+		<textinput width="80%" height="100%" id="messageinput" multiline="true" wraplines="true" />
+		<button width="20%" height="100%" id="send" text="Send" />
+	</hbox>
+</vbox>

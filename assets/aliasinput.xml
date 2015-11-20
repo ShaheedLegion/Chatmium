@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox width="100%">
+	<grid width="100%" columns="1" rows="2" xmlns:ui="haxe:ui">
+		<text text="Please enter your alias - 6 chars minimum."/>
+		<textinput text="" width="100%" id="aliasfield" />
+	</grid>
+</vbox>
