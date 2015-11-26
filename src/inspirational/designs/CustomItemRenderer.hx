@@ -12,6 +12,7 @@ class CustomItemRenderer extends ItemRenderer {
 	private var _maintext:Text;
 	private var _subtext:Text;
 	private var _icon:Image;
+	private var _attachment: Image;
 	
 	public function new() {
 		super();
@@ -58,6 +59,15 @@ class CustomItemRenderer extends ItemRenderer {
 				removeChild(_maintext, false);
 				_vbox.addChild(_maintext);
 				_vbox.addChild(_subtext);
+			}
+		}
+		if (value.attachment != null) {
+			if (_attachment == null) {
+				_attachment = new Image();
+				_attachment.id = "attachment";
+				_attachment.verticalAlign = VerticalAlign.CENTER;
+				_attachment.percentWidth = 100;
+				_vbox.addChild(_attachment);
 			}
 		}
 		return super.set_data(value);

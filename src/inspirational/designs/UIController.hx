@@ -25,10 +25,11 @@ import inspirational.designs.CustomItemRenderer;
 class UIController extends XMLController implements UITextListener {
 	
 	private var originalY: Float;
+	private var dataHandler: DataHandler;
 	
-	public function new() {
+	public function new(handler: DataHandler) {
 		super("assets/expandablepanel.xml");
-		
+		this.dataHandler = handler;
 		originalY = 0;
 		attachEvent("alias", MouseEvent.CLICK, function(e) { getAliasPopup(); } );
 		//attachEvent("upfile", MouseEvent.CLICK, function(e) { uploadFile(); } );
@@ -40,8 +41,10 @@ class UIController extends XMLController implements UITextListener {
 		
 		// Set up the renderer for the listview.
 		var sv: ListView = getComponentAs("chatpanel", ListView);
-		if (sv != null)
+		if (sv != null) {
 			sv.itemRenderer = new CustomItemRenderer();
+			sv.allowSelection = false;
+		}
 	}
 	
 	private function uploadFile(): Void {
@@ -59,10 +62,10 @@ class UIController extends XMLController implements UITextListener {
 	}
 	
 	public function AddUserEntry(user: UserData) {
-		//var usersList: ListView = getComponentAs("users", ListView);
-		//trace("Adding user entry." + user.name);
+		var usersList: ListView = getComponentAs("users", ListView);
+		trace("Adding user entry." + user.name);
 		
-		//usersList.dataSource.add({text:user.name});
+		usersList.dataSource.add({"text":user.name});
 	}
 
 	public function RemoveUserEntry(user: UserData) { }
@@ -115,24 +118,27 @@ class UIController extends XMLController implements UITextListener {
 	public function handleAliasText(text: String): Void {
 		if (text != null) {
 			trace("User set their alias " + text);
-			
-			var userList: ListView = getComponentAs("users", ListView);
-			if (userList != null) {
-				userList.dataSource.add( { "text": text } );
-			}
+			if (dataHandler != null)
+				dataHandler.AddUser( { name: text, ip: "127.0.0.1" } );
+				
+			//var userList: ListView = getComponentAs("users", ListView);
+			//if (userList != null) {
+			//	userList.dataSource.add(  );
+			//}
 		}
 		
 	}
+
 	public function handleFileUploadText(text: String): Void {}
 	public function handleMessageText(text: String): Void {
 		// This is the hard part.
 		var sv: ListView = getComponentAs("chatpanel", ListView);
 		if (sv != null) {
-			//var img: Image = new Image();
 			var bitmapData = Assets.getBitmapData ("assets/slinky.jpg");
 			var pathItem: String = Assets.getPath("assets/slinky.jpg");
-			//img.resource = Assets.getBitmapData ("assets/slinky.jpg");
-			sv.dataSource.add( { "text": "me:", "subtext": text, "icon":  "assets/slinky.jpg"} );
+			sv.dataSource.add( { "text": "me:", "subtext": text, "icon":  "assets/slinky.jpg", "attachment": "assets/slinky.jpg"} );
 		}
 	}
+	
+	
 }
